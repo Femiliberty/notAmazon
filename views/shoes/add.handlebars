@@ -8,10 +8,17 @@
 
 <div class = "card card-body">
     <h3> Add shoes</h3>
-    <form action="/shoes" method="post">
+    <form action="/shoes"  enctype="multipart/form-data" method="post">
+
+    <div class="form-group">
+    <label for = "image">image</label>
+    <input type="file" class="form-control" name="img" >
+    
+    </div>
+
     <div class="form-group">
     <label for = "name">Name</label>
-    <input type="text"  class="form-control" name="name" >
+   <input type="text"  class="form-control" name="name" >
     </div>
 
     <div class="form-group">
@@ -21,14 +28,15 @@
 
     <div class="form-group">
     <label for = "sizes">Size</label>
+    <input type="text"  class="form-control" name="size" >
    
-    <input type="checkbox"  class="form-control" name="9" value="9" >
+    {{!-- <input type="checkbox"  class="form-control" name="9" value="9" >
     <input type="checkbox"  class="form-control" name="9.5" value="9" >
     <input type="checkbox"  class="form-control" name="10" value="9" >
     <input type="checkbox"  class="form-control" name="10.5" value="9" >
     <input type="checkbox"  class="form-control" name="11" value="9">
     <input type="checkbox"  class="form-control" name="11.5" value="9">
-    <input type="checkbox"  class="form-control" name="12" value="9">
+    <input type="checkbox"  class="form-control" name="12" value="9"> --}}
       </div>
 
       

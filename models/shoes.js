@@ -7,7 +7,14 @@ const ShoeSchema = new Schema({
     // ProductImage:{
     //     type:String,
     //     required: true
-    // }, 
+    // },
+    
+    img:{
+        type:String,
+        required:true
+    },
+
+
     name:{
         type:String,
         required: true

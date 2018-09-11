@@ -3,8 +3,24 @@ const exphbs = require ('express-handlebars')
 const methodOverride = require('method-override')
 const mongoose = require ('mongoose');
 const bodyParser = require ('body-parser');
- const shoes = require ('./models/shoes')
+ const shoes = require ('./models/shoes');
+ const multer = require ('multer');
+ const uuid = require ('uuid');
+ const path = require ('path');
 const app = express()
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './public/product-pictures');
+    },
+    filename: function(req, file, cb) {
+      let profileID = uuid() + '.jpg';
+      cb(null, profileID);
+    }
+  })
+  
+  var upload = multer({storage: storage});
 
 
 //map global promise - GET RID OF THE WARNING
@@ -43,6 +59,9 @@ app.use(bodyParser.json())
 //Method overide middleware
 app.use(methodOverride('_method'));
 
+//to let the app know to use ..........
+app.use(express.static(path.join(__dirname, 'public')));
+
 // //how to use middleware
 // app.use(function(req,res, next){
 //     req.name ='femiiiii';
@@ -80,10 +99,12 @@ app.get('/shoes/add', (req, res) => {
 
 //edit shoe form
 app.get('/shoes/edit/:id', (req, res)=>{
+
+
     shoes.findOne({
         _id: req.params.id
     })
-    .then(shoe => {    
+    .then(shoe => {   
     res.render('shoes/edit', {
          shoe:shoe
         });
@@ -91,9 +112,25 @@ app.get('/shoes/edit/:id', (req, res)=>{
 });
 
 //process shoe
-app.post('/shoes', (req, res)=>{
+app.post('/shoes', upload.single('img'), (req, res)=>{
+    let img
+    if (req.file) {
+      img = req.file.filename;
+    } else {
+      img = 'noimage.jpg';
+    }
+  
+    req.body.img = img;
+
+
+
+
     let errors=[];
     
+
+    if(!req.body.img){
+        errors.push({text:'please enter shoe name'});
+    }
     if(!req.body.name){
         errors.push({text:'please enter shoe name'});
     }
@@ -109,6 +146,7 @@ app.post('/shoes', (req, res)=>{
     if(errors.length > 0){
         res.render('shoes/add',{
             errors: errors,
+        img:req.body.img,   
         name:req.body.name,
         description:req.body.description,
        sizes:req.body.sizes,
@@ -116,6 +154,8 @@ app.post('/shoes', (req, res)=>{
     });
     }else{
         const newShoes ={
+
+            img:req.body.img,
             name:req.body.name,
             description:req.body.description,
             sizes:req.body.sizes,
@@ -129,13 +169,16 @@ app.post('/shoes', (req, res)=>{
     } 
 });
 
+
 //Edit shoe form process
 app.put('/shoes/:id',(req, res) => {
-    
-  shoes.findByIdAndUpdate({
+
+    shoes.findOne({
+
       _id:req.params.id
     })
     .then(shoe => {
+        shoe.img= req.body.img
         shoe.name =req.body.name;
         shoe.description =req.body.description;
         shoe.size =req.body.size;
@@ -144,16 +187,26 @@ app.put('/shoes/:id',(req, res) => {
         shoe.save()
         .then(shoe => {
             res.redirect('/shoes');
-        });
-    });
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
   }); 
 
   //delete shoe
-  app.delete('/shoes',(req, res)=> {
-      res.send("delete")
+  app.delete('/shoes/:id',(req, res)=> {
+
+      shoe.remove({
+          _id: req.params.id
+        })
+      .then(() => {
+          res.redirect('/shoes')
+      })
   });
-
-
 
 const port = 5000;
 

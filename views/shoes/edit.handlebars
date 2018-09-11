@@ -8,30 +8,35 @@
 
 <div class = "card card-body">
     <h3> Edit shoes</h3>
-    <form action="/shoes/{{shoes.id}}?_method=PUT" method="post">
+
+    <form action="/shoes/{{shoe.id}}?_method=PUT" method="post">
     
-    <input type="hidden" name="_method" value="PUT">
-    <div class="form-group">
-    <label for = "name">Name</label>
-    <input type="text"  class="form-control" name="name"   value="{{shoe.name}}" required>
-    </div>
+        <input type="hidden" name="_method" value="PUT">
+        <div class="form-group">
+        <label for = "name">Name</label>
+        <input type="file"  class="form-control" name="img"   value="{{shoe.img}}" required>
+        </div>
+        <div class="form-group">
+        <label for = "name">Name</label>
+        <input type="text"  class="form-control" name="name"   value="{{shoe.name}}" required>
+        </div>
 
-    <div class="form-group">
-    <label for = "description">Description</label>
-    <input type="text"  class="form-control" name="description"value=" {{shoe.description}}"required>
-    </div>
+        <div class="form-group">
+        <label for = "description">Description</label>
+        <input type="text"  class="form-control" name="description"value=" {{shoe.description}}"required>
+        </div>
 
-    <div class="form-group">
-    <label for = "sizes">Size</label>
-    <input type="text"  class="form-control" name="size" value="{{shoe.size}}"required>
-    </div>
+        <div class="form-group">
+        <label for = "sizes">Size</label>
+        <input type="text"  class="form-control" name="size" value="{{shoe.size}}"required>
+        </div>
 
-    <div class="form-group">
-    <label for = "price">Price</label>
-    <input type="text"  class="form-control" name="price" value="{{shoe.price}}" required>
-    </div>
-    <button type="submit" class="btn
-    btn-primary">Hit Me</button>
+        <div class="form-group">
+        <label for = "price">Price</label>
+        <input type="text"  class="form-control" name="price" value="{{shoe.price}}" required>
+        </div>
+        <button type="submit" class="btn
+        btn-primary">Hit Me</button>
    
     </form>
 </div>

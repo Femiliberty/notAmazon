@@ -1,6 +1,6 @@
 {{#each shoes}}
 <div class="card card-body mb-2">
-   
+     <p{{img}}></p>
     <h4>{{name}}</h4>
     <p><b>Description:</b>{{description}}</p>
     <div class="hover-content" ></div>
@@ -9,9 +9,10 @@
     
     <a class="btn btn-dark  btn-block mb-2" href="/shoes/edit/{{id}}">Edit Shoes</a>
     <form method="post" action="/shoes/{{id}}?
-    _method= DELETE">
+    _method=DELETE">
 
-    <input type="hidden" name= "_method" value="DELETE">
+
+    <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn btn-danger btn-block" value="Delete">
     </form>
 
