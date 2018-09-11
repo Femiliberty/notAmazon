@@ -1,0 +1,44 @@
+{{!-- //alerting error message --}}
+{{#each errors}}
+<div class= "alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+
+
+<div class = "card card-body">
+    <h3> Add shoes</h3>
+    <form action="/shoes" method="post">
+    <div class="form-group">
+    <label for = "name">Name</label>
+    <input type="text"  class="form-control" name="name" >
+    </div>
+
+    <div class="form-group">
+    <label for = "description">Description</label>
+    <input type="text"  class="form-control" name="description" >
+    </div>
+
+    <div class="form-group">
+    <label for = "sizes">Size</label>
+   
+    <input type="checkbox"  class="form-control" name="9" value="9" >
+    <input type="checkbox"  class="form-control" name="9.5" value="9" >
+    <input type="checkbox"  class="form-control" name="10" value="9" >
+    <input type="checkbox"  class="form-control" name="10.5" value="9" >
+    <input type="checkbox"  class="form-control" name="11" value="9">
+    <input type="checkbox"  class="form-control" name="11.5" value="9">
+    <input type="checkbox"  class="form-control" name="12" value="9">
+      </div>
+
+      
+    
+    <div class="form-group">
+    <label for = "price">Price</label>
+    <input type="text"  class="form-control" name="price" >
+    </div>
+    <button type="submit" class="btn
+    btn-primary">Hit Me</button>
+   
+    </form>
+</div>

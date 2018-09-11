@@ -1,0 +1,37 @@
+{{!-- //alerting error message --}}
+{{#each errors}}
+<div class= "alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+
+
+<div class = "card card-body">
+    <h3> Edit shoes</h3>
+    <form action="/shoes/{{shoes.id}}?_method=PUT" method="post">
+    
+    <input type="hidden" name="_method" value="PUT">
+    <div class="form-group">
+    <label for = "name">Name</label>
+    <input type="text"  class="form-control" name="name"   value="{{shoe.name}}" required>
+    </div>
+
+    <div class="form-group">
+    <label for = "description">Description</label>
+    <input type="text"  class="form-control" name="description"value=" {{shoe.description}}"required>
+    </div>
+
+    <div class="form-group">
+    <label for = "sizes">Size</label>
+    <input type="text"  class="form-control" name="size" value="{{shoe.size}}"required>
+    </div>
+
+    <div class="form-group">
+    <label for = "price">Price</label>
+    <input type="text"  class="form-control" name="price" value="{{shoe.price}}" required>
+    </div>
+    <button type="submit" class="btn
+    btn-primary">Hit Me</button>
+   
+    </form>
+</div>
