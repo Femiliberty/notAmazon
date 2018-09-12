@@ -3,12 +3,11 @@ const exphbs = require ('express-handlebars')
 const methodOverride = require('method-override')
 const mongoose = require ('mongoose');
 const bodyParser = require ('body-parser');
- const shoes = require ('./models/shoes');
- const multer = require ('multer');
- const uuid = require ('uuid');
- const path = require ('path');
-const app = express()
-
+const shoes = require ('./models/shoes');
+const multer = require ('multer');
+const uuid = require ('uuid');
+const path = require ('path');
+const app = express();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,10 +17,9 @@ const storage = multer.diskStorage({
       let profileID = uuid() + '.jpg';
       cb(null, profileID);
     }
-  })
+  });
   
   var upload = multer({storage: storage});
-
 
 //map global promise - GET RID OF THE WARNING
 mongoose.Promise = global.Promise;
@@ -33,28 +31,16 @@ mongoose.connect('mongodb://localhost:27017/personalpractice',{
 
 })
 .then(()=> console.log('MongoDB connected...'))
-.catch(err => console.log(err))
-
-//load shoes
-
-// require('./models/shoes');
-// const shoe = mongoose.model('shoes');
-
-
-
-
-
+.catch(err => console.log(err));
 
 //handle bars middleware
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-
 //body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Method overide middleware
 app.use(methodOverride('_method'));
@@ -73,11 +59,11 @@ app.get('/' ,(req, res)=>{
     const title = 'Welcome Femi'
     res.render('index',{
         title: title
-    })
-})
+    });
+});
 
 app.get('/about',(req, res) =>{
-res.render('About')
+    res.render('About');
 })
 
 //shoe index page
@@ -85,11 +71,9 @@ app.get('/shoes',(req, res)=>{
     shoes.find({})
     .then(shoes =>{
         res.render('shoes/index',{
-shoes:shoes
-    
+            shoes:shoes
         });
     });
-    
 });
 
 //add shoes form
@@ -99,8 +83,6 @@ app.get('/shoes/add', (req, res) => {
 
 //edit shoe form
 app.get('/shoes/edit/:id', (req, res)=>{
-
-
     shoes.findOne({
         _id: req.params.id
     })
@@ -109,6 +91,16 @@ app.get('/shoes/edit/:id', (req, res)=>{
          shoe:shoe
         });
     })
+});
+
+// get product page 
+app.get('/product', (req, res) => {
+    res.render('product');
+});
+
+// get cart page 
+app.get('/cart', (req, res) => {
+    res.render('cart');
 });
 
 //process shoe
@@ -122,12 +114,8 @@ app.post('/shoes', upload.single('img'), (req, res)=>{
   
     req.body.img = img;
 
-
-
-
     let errors=[];
     
-
     if(!req.body.img){
         errors.push({text:'please enter shoe name'});
     }
@@ -146,11 +134,11 @@ app.post('/shoes', upload.single('img'), (req, res)=>{
     if(errors.length > 0){
         res.render('shoes/add',{
             errors: errors,
-        img:req.body.img,   
-        name:req.body.name,
-        description:req.body.description,
-       sizes:req.body.sizes,
-      price:req.body.price
+            img:req.body.img,   
+            name:req.body.name,
+            description:req.body.description,
+            sizes:req.body.sizes,
+            price:req.body.price
     });
     }else{
         const newShoes ={
@@ -212,5 +200,4 @@ const port = 5000;
 
 app.listen(port, () =>{
     console.log(`Server started on port ${port}`);
-
-})
+});
