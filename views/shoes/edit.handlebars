@@ -9,7 +9,7 @@
 <div class = "card card-body">
     <h3> Edit shoes</h3>
 
-    <form action="/shoes/{{shoe.id}}?_method=PUT" method="post">
+    <form action="/shoes/{{shoe.id}}?_method=PUT" enctype="multipart/form-data" method="post">
     
         <input type="hidden" name="_method" value="PUT">
         <div class="form-group">

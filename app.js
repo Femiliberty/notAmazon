@@ -5,22 +5,32 @@ const mongoose = require ('mongoose');
 const bodyParser = require ('body-parser');
  const shoes = require ('./models/shoes');
  const multer = require ('multer');
+ const flash  = require ('connect-flash');
+ const session = require ('express-session');
  const uuid = require ('uuid');
  const path = require ('path');
-const app = express()
+ const passport = require('passport')
+const app = express();
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, './public/product-pictures');
-    },
-    filename: function(req, file, cb) {
-      let profileID = uuid() + '.jpg';
-      cb(null, profileID);
-    }
-  })
+const shoesRouter = require('./routes/shoes')
+const users = require('./routes/users')
+
+
+//passport config
+require('./config/passport')(passport)
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, './public/product-pictures');
+//     },
+//     filename: function(req, file, cb) {
+//       let profileID = uuid() + '.jpg';
+//       cb(null, profileID);
+//     }
+//   })
   
-  var upload = multer({storage: storage});
+//   var upload = multer({storage: storage});
 
 
 //map global promise - GET RID OF THE WARNING
@@ -59,8 +69,34 @@ app.use(bodyParser.json())
 //Method overide middleware
 app.use(methodOverride('_method'));
 
+//middleware for express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  }));
+
+  // Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+  app.use(flash());
+
+  //global variables for messages
+  app.use(function(req, res, next){
+      res.locals.success_msg = req.flash('success_msg')
+      res.locals.success_msg = req.flash('error_msg');
+      res.locals.error = req.flash('error');
+      res.locals.user = req.user || null;
+      next();
+  })
+
 //to let the app know to use ..........
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/shoes', shoesRouter)
+app.use('/users', users)
 
 // //how to use middleware
 // app.use(function(req,res, next){
@@ -80,133 +116,8 @@ app.get('/about',(req, res) =>{
 res.render('About')
 })
 
-//shoe index page
-app.get('/shoes',(req, res)=>{
-    shoes.find({})
-    .then(shoes =>{
-        res.render('shoes/index',{
-shoes:shoes
-    
-        });
-    });
-    
-});
 
-//add shoes form
-app.get('/shoes/add', (req, res) => {
-    res.render('shoes/add');
-});
-
-//edit shoe form
-app.get('/shoes/edit/:id', (req, res)=>{
-
-
-    shoes.findOne({
-        _id: req.params.id
-    })
-    .then(shoe => {   
-    res.render('shoes/edit', {
-         shoe:shoe
-        });
-    })
-});
-
-//process shoe
-app.post('/shoes', upload.single('img'), (req, res)=>{
-    let img
-    if (req.file) {
-      img = req.file.filename;
-    } else {
-      img = 'noimage.jpg';
-    }
   
-    req.body.img = img;
-
-
-
-
-    let errors=[];
-    
-
-    if(!req.body.img){
-        errors.push({text:'please enter shoe name'});
-    }
-    if(!req.body.name){
-        errors.push({text:'please enter shoe name'});
-    }
-    if(!req.body.description){
-        errors.push({text:'please enter shoe description'})
-    }
-    if(!req.body.size){
-        errors.push({text:'please enter  shoe size'})
-    }
-    if(!req.body.price){
-        errors.push({text:'please enter select shoe price'})
-    }
-    if(errors.length > 0){
-        res.render('shoes/add',{
-            errors: errors,
-        img:req.body.img,   
-        name:req.body.name,
-        description:req.body.description,
-       sizes:req.body.sizes,
-      price:req.body.price
-    });
-    }else{
-        const newShoes ={
-
-            img:req.body.img,
-            name:req.body.name,
-            description:req.body.description,
-            sizes:req.body.sizes,
-            price:req.body.price
-        }
-        new shoes (newShoes)
-        .save()
-        .then(idea => {
-            res.redirect('/shoes')
-        })
-    } 
-});
-
-
-//Edit shoe form process
-app.put('/shoes/:id',(req, res) => {
-
-    shoes.findOne({
-
-      _id:req.params.id
-    })
-    .then(shoe => {
-        shoe.img= req.body.img
-        shoe.name =req.body.name;
-        shoe.description =req.body.description;
-        shoe.size =req.body.size;
-        shoe.price =req.body.price;
-
-        shoe.save()
-        .then(shoe => {
-            res.redirect('/shoes');
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    })
-    .catch(err => {
-        console.log(err)
-    })
-  }); 
-
-  //delete shoe
-  app.delete('/shoes/:id',(req, res)=> {
-
-      shoe.remove({
-          _id: req.params.id
-        })
-      .then(() => {
-          res.redirect('/shoes')
-      })
-  });
 
 const port = 5000;
 

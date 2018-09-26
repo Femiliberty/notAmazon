@@ -2,40 +2,41 @@ const mongoose = require ('mongoose')
 const Schema = mongoose.Schema;
 
 //create Schema
-const ShoeSchema = new Schema({
+const UserSchema = new Schema({
 
     // ProductImage:{
     //     type:String,
     //     required: true
     // },
     
-    img:{
+    name:{
         type:String,
         required:true
     },
 
+    isAdmin:{
+        type: Boolean, default: false, required:true
+    },
 
-    name:{
+    // UserLoginCount:{
+    //   Type: number
+    // },
+
+    // UserLockoutCount:{
+    //   Type:boolean
+    // },
+     
+
+    email:{
         type:String,
         required: true
     }, 
-    description:{
+    password:{
         type:String,
         required: true
 
     },
-    user:{
-        type:String,
-        required:true
-    },
-    sizes: {
-        type:Array,
-        required: true
-    },
-    price: {
-        type:String,
-        rewquired: true
-    }
-
+    
+    
 });
-module.exports = mongoose.model('shoes', ShoeSchema)
+mongoose.model('users', UserSchema);
