@@ -19,3 +19,11 @@ addSizeBtn.addEventListener('click', (event) => {
   sizesUl.appendChild(li);
 
 });
+
+function toggleMenu() {
+
+  document.getElementById('navMenu').classList.toggle('active');
+  document.getElementById('navMenu').classList.toggle('animated');
+  document.getElementById('navMenu').classList.toggle('jello');
+
+}

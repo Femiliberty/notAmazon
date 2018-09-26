@@ -17,7 +17,17 @@ aside {
   /* background: green; */
   grid-area: aside;
 }
+
+.nav-bar {
+  grid-area: nav-bar;
+}
+
+header {
+  grid-area: header;
+}
 #main-content {
+  margin: 50px auto;
+  width: 80%;
   display: flex;
   grid-area: content;
   /* background: red; */
@@ -34,14 +44,14 @@ img {
 /* =========== Navigation =============*/
 
 #side-bar-logo{
-    border-bottom: 5px solid gold;
+    /* border-bottom: 5px solid gold; */
     margin: 40px auto 70px auto;
     font-size: 2.5rem;
     text-align: center;
 }
 
 #side-bar-logo h5 {
-    border-bottom: 5px solid goldenrod;
+    /* border-bottom: 5px solid goldenrod; */
 }
 
 nav ul {
@@ -302,7 +312,7 @@ button {
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas: 
-    "aside"
+    "nav-bar"
     "content"
     "footer";
   }
@@ -344,4 +354,122 @@ button {
   #product-details {
     flex-direction: column;
   }
+
+  .product-photos {
+      margin: 0 auto;
+      width: 80%;
+  }
+
+  .nav-bar {
+  background-color: rgb(10,10,10, 1);
+  height: 80px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+nav h3 {
+  display: inline-block;
+  background-color: transparent;
+  position: relative;
+  left: 10px;
+  bottom: 25px;
+  color: whitesmoke;
+  font-size: 2rem;
+  font-family: 'Permanent Marker', cursive;
+}
+
+nav img {
+  height: 80%;
+  margin-top: 9px;
+  margin-left: 15px;
+  background-color: transparent;
+}
+
+nav ul {
+    list-style-type: none;
+    display: block;
+    margin-top: 80px;
+  
+    background-color: transparent;
+  
+}
+
+nav ul li {
+  padding: 5vh;
+  background-color: transparent;
+  text-align: center;
+  font-size: 4rem;
+  border-bottom: 1px solid rgb(75,75,75,.5);
+  
+}
+
+nav ul li:hover {
+  background: rgb(20,20,20, 1);
+}
+
+nav a {
+  text-decoration: none;
+  background-color: transparent;
+  color: rgb(224,164,73);
+  text-transform: uppercase;
+  font-family: 'Permanent Marker', cursive;
+}
+
+#navPopUp {
+  float: right;
+  margin-right: 20px;
+  
+  padding: 10px;
+  background-color: transparent;
+  height: 80px;
+  width: 80px;
+  
+  
+  postion: relative;
+    
+ 
+}
+
+
+
+#navPopUp span {
+  display: grid;
+  margin: 0 auto;
+  width: 90%;
+  height: 7px;
+  margin-bottom: 12px;
+  border-radius: 3px;
+    
+  position: relative;
+  top: 9px;
+  
+  background-color: whitesmoke;
+  z-index: 2;
+  
+ 
+}
+
+#navMenu {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(10,10,10,.98);
+  right: -100%;
+  top: 0px;
+  opacity: 1;
+  z-index: 1;
+  text-align: center;
+}
+
+#navMenu.active {
+  
+  right: 0%;
+}
+
+  /* .main-photo {
+      margin: 0 auto;
+      width: 80%;
+  } */
 }
