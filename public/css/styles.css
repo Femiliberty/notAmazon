@@ -6,12 +6,14 @@
 
 body {
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 .container {
     display: flex;
     justify-content: flex-start;
     position: absolute;
+
 }
 
 aside {
@@ -19,7 +21,7 @@ aside {
     flex-direction: column;
     align-items: center;
     background: white;
-    width: 400px;
+    width: 300px;
 }
 
 #aside-content {
@@ -62,8 +64,9 @@ nav li:hover {
 #main-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     background: transparent;
+    height: auto;
 }
 
 main{
@@ -77,6 +80,7 @@ main{
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 200px;
 }
 
 .products img {
@@ -132,14 +136,23 @@ footer {
 #product-details {
     display: flex;
     justify-content: center;
+    align-content: space-between;
     margin: 100px auto 200px 10px;
-    height: 1000px;
+    /* height: 1000px; */
+    width: 100%;
+}
+
+.product-photos {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 30vw;
 }
 
 .main-photo {
     display: block;
     min-width: 300px;
-    width: 730px;
+    /* width: 730px; */
 }
 
 .main-photo img {
@@ -151,39 +164,36 @@ footer {
 }
 
 .more-photos {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-evenly;
     margin: 10px auto;
-    max-width: 700px;
-    height: auto;
+    max-width: 100%;
+    min-height: 100px;
     background: transparent;
+    border: 3px solid transparent;
 }
 
-.small-photo img {
-    width: auto;
-    max-width: 170px;
-    max-height: 180px;
-}
-
-.small-photo img:hover {
-    border: 3px solid gold;
+.more-photos img {
+    height: 100%;
+    cursor: pointer;
 }
 
 .product-description {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 30vw;
     margin-left: 30px;
     background: transparent;
 }
 
 .product-description p {
     margin: 40px 0;
+    line-height: 2rem;
 }
 
 .product-description input {
-    /* margin: 40px 0; */
     width: 100px;
     padding: 10px;
     outline: none;
@@ -225,7 +235,7 @@ button {
     border: none;
     background: gold;
     padding: 20px;
-    width: 300px;
+    width: 100%;
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
@@ -306,4 +316,91 @@ table img {
 
 #cart-checkout-btn {
     margin: 50px auto 20px auto;
+}
+
+
+/*====================== Add Shoes =========================*/
+
+textarea {
+    width: 100%;
+}
+
+#add-form {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+#add-form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#add-form input {
+    margin: 20px auto;
+    width: 100%;
+    font-size: 2rem;
+}
+
+#size-qty-div li {
+    list-style: none;
+    display: flex;
+}
+
+#size-qty-div input {
+    display: inline;
+}
+
+/*====================== Edit Shoe =========================*/
+
+#edit-form {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+#edit-form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#edit-form input {
+    margin: 20px auto;
+    width: 100%;
+    font-size: 2rem;
+}
+
+#delete-btn {
+    background: darkred;
+}
+
+@media only screen and (max-width: 1000px ) {
+    .container {
+        width: 100%;
+    }
+    aside{
+        display: none;
+    }
+    #product-details {
+
+        /* background: red; */
+        flex-direction: column;
+    }
+    .product-photos {
+        max-width: 90vw;
+    }
+
+    /* .more-photos {
+        max-width: 700px;
+    } */
+
+    .product-description {
+        margin: 0 auto;
+        width: 70vw;
+    }
+
 }

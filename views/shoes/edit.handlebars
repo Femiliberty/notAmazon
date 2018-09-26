@@ -1,42 +1,93 @@
 {{!-- //alerting error message --}}
 {{#each errors}}
-<div class= "alert alert-danger">{{text}}</div>
+<div class="alert alert-danger">{{text}}</div>
+{{else}}
+<h3> Edit shoes</h3>
+<div id="edit-form">
+    <form action="/shoes/{{shoe.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+
+        <div>
+            <input type="file" name="img" placeholder="Product Image">
+        </div>
+
+        <div>
+            <input type="text" name="name" placeholder="Product Name">
+        </div>
+
+        <div>
+            <input type="text" name="price" placeholder="Price">
+        </div>
+
+
+
+        <div id="size-qty-div">
+            <ul id="sizes-ul">
+                {{#each shoe.sizes}}
+                <li>
+                    <input type="text" name="sizes[{{@index}}][size]" placeholder="Size" value="{{size}}">
+                    <input type="text" name="sizes[{{@index}}][qty]" placeholder="Qty" value="{{qty}}">
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <button id="add-size-btn">Add Size</button>
+
+
+
+        <div>
+            <textarea rows="10" cols="10" name="description" placeholder="Product Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Hit Me</button>
+    </form>
+    <form method="post" action="/shoes/{{shoe._id}}?_method=DELETE">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" id="delete-btn">Delete</button>
+    </form>
+</div>
+{{/each}}
+
+
+{{!-- <div class= "alert alert-danger">{{text}}</div>
 {{else}}
 
 {{/each}}
 
 
-<div class = "card card-body">
+<div id="edit-form">
     <h3> Edit shoes</h3>
 
-    <form action="/shoes/{{shoe.id}}?_method=PUT" method="post">
+    <form action="/shoes/{{shoe.id}}" method="post" enctype="multipart/form-data">
     
-        <input type="hidden" name="_method" value="PUT">
-        <div class="form-group">
-        <label for = "name">Name</label>
-        <input type="file"  class="form-control" name="img"   value="{{shoe.img}}" required>
+        <div>
+     
+        <input type="file" name="img">xx
         </div>
-        <div class="form-group">
-        <label for = "name">Name</label>
-        <input type="text"  class="form-control" name="name"   value="{{shoe.name}}" required>
-        </div>
-
-        <div class="form-group">
-        <label for = "description">Description</label>
-        <input type="text"  class="form-control" name="description"value=" {{shoe.description}}"required>
+        <div>
+        
+        <input type="text" name="name" value="{{shoe.name}}">
         </div>
 
-        <div class="form-group">
-        <label for = "sizes">Size</label>
-        <input type="text"  class="form-control" name="size" value="{{shoe.size}}"required>
+        <div>
+            <input type="text" name="price" value="{{shoe.price}}">
         </div>
 
-        <div class="form-group">
-        <label for = "price">Price</label>
-        <input type="text"  class="form-control" name="price" value="{{shoe.price}}" required>
+        
+        <div id="size-qty-div">
+            <ul id="sizes-ul">
+                {{#each shoe.sizes}}
+                <li>
+                    <input type="text" name="sizes[{{@index}}][size]" formenctype="multipart/form-data" value="{{size}}">
+                    <input type="text" name="sizes[{{@index}}][qty]" formenctype="multipart/form-data" value="{{qty}}">
+                </li>
+                {{/each}}
+            </ul>
         </div>
-        <button type="submit" class="btn
-        btn-primary">Hit Me</button>
+        <button id="add-size-btn">Add Size</button>
+
+        <div>
+            <textarea rows="10" name="description">{{shoe.description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Hit Me</button>
    
     </form>
-</div>
+</div> --}}
