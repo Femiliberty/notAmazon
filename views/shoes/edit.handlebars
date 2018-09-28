@@ -41,7 +41,9 @@
     </form>
     <form method="post" action="/shoes/{{shoe._id}}?_method=DELETE">
         <input type="hidden" name="_method" value="DELETE">
+        {{#if user.isAdmin}}
         <button type="submit" id="delete-btn">Delete</button>
+        {{/if}}
     </form>
 </div>
 {{/each}}

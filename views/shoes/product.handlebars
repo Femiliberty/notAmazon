@@ -35,7 +35,9 @@
             <label for="qty">Qty</label>
             <input type="number" min="1" id="qty" placeholder="1">
         </div>
-        <button id="add-to-cart">Add to cart</button>
+        <a href="/add-to-cart/{{shoe.id}}"><button id="add-to-cart">Add to cart</button></a>
+        {{#if user.isAdmin}}
         <a href="/shoes/edit/{{shoe.id}}">Edit Shoes</a>
+        {{/if}}
     </div>
 </div>

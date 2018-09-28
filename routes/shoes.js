@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 const multer = require('multer');
 const uuid = require('uuid');
+
 const shoes = require('../models/shoes.js');
+const cart = require('../models/Cart');
+const { ensureAuthenticated } = require('../helpers/auth');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -16,7 +19,7 @@ const storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-// get product page 
+// get single product page 
 router.get('/product/:id', (req, res) => {
   shoes.findOne({
     _id: req.params.id
@@ -52,7 +55,7 @@ router.get('/edit/:id', (req, res) => {
 
 // POST Add shoe
 router.post('/add', upload.single('img'), (req, res) => {
-  console.log(req.body)
+
   let img
   if (req.file) {
     img = req.file.filename;

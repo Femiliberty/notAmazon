@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 #wrapper {
@@ -203,6 +204,67 @@ button {
     padding: 20px;
 }
 
+/* Cart Page */
+table {
+    width: 700px;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    width: 400px;
+    margin-bottom: 100px;
+
+}
+
+thead tr {
+    height: 30px;
+    background: rgb(238, 238, 238);
+    
+}
+
+thead th {
+    font-weight: 300;
+    font-size: .8rem;
+}
+
+td {
+    margin-top: 100px;
+    text-align: left;
+}
+
+table img {
+    height: 200px;
+    margin-top: 10px;
+}
+
+#cart-total {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 400px;
+    height: 400px;
+    background:  rgb(238, 238, 238);
+}
+
+#cart-total h3 {
+    margin: 30px;
+}
+
+#cart-total p {
+    margin: 30px;
+}
+
+#cart-total div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#cart-checkout-btn {
+    margin: 50px auto 20px auto;
+}
+
 
 /* #product-details {
     display: flex;
@@ -304,6 +366,10 @@ button {
     cursor: pointer;
 } */
 
+#navMenu {
+    display: none;
+}
+
 
 @media only screen and (max-width: 800px ) {
     
@@ -318,6 +384,7 @@ button {
   }
 
   aside {
+      display: none;
     z-index: 1;
     /* position: fixed; */
     width: 100%;
@@ -357,7 +424,7 @@ button {
 
   .product-photos {
       margin: 0 auto;
-      width: 80%;
+      width: 90%;
   }
 
   .nav-bar {
@@ -389,7 +456,9 @@ nav img {
 
 nav ul {
     list-style-type: none;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 80px;
   
     background-color: transparent;
@@ -397,10 +466,10 @@ nav ul {
 }
 
 nav ul li {
-  padding: 5vh;
+  /* padding: 5vh; */
   background-color: transparent;
   text-align: center;
-  font-size: 4rem;
+  font-size: 3rem;
   border-bottom: 1px solid rgb(75,75,75,.5);
   
 }
@@ -414,22 +483,17 @@ nav a {
   background-color: transparent;
   color: rgb(224,164,73);
   text-transform: uppercase;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker', sans-serif;
 }
 
 #navPopUp {
   float: right;
   margin-right: 20px;
-  
   padding: 10px;
   background-color: transparent;
   height: 80px;
   width: 80px;
-  
-  
   postion: relative;
-    
- 
 }
 
 
@@ -452,9 +516,10 @@ nav a {
 }
 
 #navMenu {
+  display: none;
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: rgba(10,10,10,.98);
   right: -100%;
   top: 0px;
@@ -464,7 +529,7 @@ nav a {
 }
 
 #navMenu.active {
-  
+  display: inherit;
   right: 0%;
 }
 
