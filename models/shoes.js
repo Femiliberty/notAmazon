@@ -4,25 +4,17 @@ const Schema = mongoose.Schema;
 //create Schema
 const ShoeSchema = new Schema({
 
-    // ProductImage:{
-    //     type:String,
-    //     required: true
-    // },
-    
     img:{
         type:String,
-        required:true
+        required:false
     },
-
-
     name:{
         type:String,
-        required: true
+        required: false
     }, 
     description:{
         type:String,
-        required: true
-
+        required: false
     },
     user:{
         type:String,
@@ -30,11 +22,11 @@ const ShoeSchema = new Schema({
     },
     sizes: {
         type:Array,
-        required: true
+        required: false
     },
     price: {
-        type:String,
-        rewquired: true
+        type:Number,
+        required: false
     }
 
 });

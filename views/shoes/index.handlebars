@@ -1,25 +1,35 @@
-{{#each shoes}}
-<div class="card card-body mb-2">
-     <p{{img}}></p>
+<div class="products">
+    {{#each shoes}}
+    <div class="product">
+        <a href="shoes/product/{{_id}}">
+            <img src="product-pictures/{{img}}">
+            <div class="hover-content">
+                <p>From ${{price}}</p>
+                <h3>{{name}}</h3>
+            </div>
+        </a>
+    </div>
+    {{else}}
+    <p>No shoes listed</p>
+    {{/each}}
+</div>
+
+{{!-- <div class="card card-body mb-2">
+    <p {{img}}></p>
     <h4>{{name}}</h4>
     <p><b>Description:</b>{{description}}</p>
-    <div class="hover-content" ></div>
+    <div class="hover-content"></div>
     <p>{{sizes}}</p>
     <p>{{price}}</p>
-    
+
     <a class="btn btn-dark  btn-block mb-2" href="/shoes/edit/{{id}}">Edit Shoes</a>
     <form method="post" action="/shoes/{{id}}?_method=DELETE">
 
 
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" class="btn btn-danger btn-block" value="Delete">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" class="btn btn-danger btn-block" value="Delete">
     </form>
 
-</div>
-
-
-{{else}}
-<p>No shoes listed</p>
-{{/each}}
+</div> --}}
 
 

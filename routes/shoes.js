@@ -1,118 +1,140 @@
-const express = require ('express');
-const router = express.Router();
-const multer = require ('multer');
-const shoes = require ('../models/shoes');
-const uuid = require ('uuid');
-const {ensureAuthenticated} = require('../helpers/auth')
 
+var express = require('express');
+var router = express.Router();
+const multer = require('multer');
+const uuid = require('uuid');
 
-
+const shoes = require('../models/shoes.js');
+const cart = require('../models/Cart');
+const { ensureAuthenticated } = require('../helpers/auth');
 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/product-pictures');
   },
-  filename: function(req, file, cb) {
+
+  filename: function (req, file, cb) {
+
     let profileID = uuid() + '.jpg';
     cb(null, profileID);
   }
 });
 
-var upload = multer({storage: storage});
 
-//shoe index page
-router.get('/',ensureAuthenticated,(req, res)=>{
-  shoes.find({})
-  .then(shoes =>{
-      res.render('shoes/index',{
-shoes:shoes
-  
+var upload = multer({ storage: storage });
+
+// get single product page 
+router.get('/product/:id', (req, res) => {
+  shoes.findOne({
+    _id: req.params.id
+  })
+    .then(shoe => {
+      res.render('shoes/product', { shoe: shoe });
+    })
+    .catch(err => {
+      res.json({
+        message: 'Error getting product',
+        err
       });
-  });
-  
+      return;
+    });
 });
 
-//add shoes form
-router.get('/add',ensureAuthenticated, (req, res) => {
+// GET add shoes form
+router.get('/add', ensureAuthenticated, (req, res) => {
+  if (!req.user.isAdmin) {
+    res.json({
+      message: 'You do not have permission to access this'
+    })
+  }
   res.render('shoes/add');
 });
 
-//edit shoe form
-router.get('/edit/:id',ensureAuthenticated, (req, res)=>{
-
-
+// GET edit shoe form
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  if(!req.user.isAdmin) {
+    res.json({
+      message: 'You do not have permission to access this'
+    })
+  }
+ 
   shoes.findOne({
-      _id: req.params.id
+    _id: req.params.id
   })
-  .then(shoe => {   
-  res.render('shoes/edit', {
-       shoe:shoe
+    .then(shoe => {
+      // if (!req.user.isAdmin) {
+      //   res.render('shoes/index', { shoe: shoe  })
+      // }
+      res.render('shoes/edit', {
+        shoe: shoe
       });
-  })
+    })
 });
 
-//process shoe
-router.post('/', upload.single('img'),ensureAuthenticated, (req, res)=>{
+// POST Add shoe
+router.post('/add', upload.single('img'), (req, res) => {
+
+
   let img
   if (req.file) {
     img = req.file.filename;
   } else {
     img = 'noimage.jpg';
   }
+
+
   req.body.img = img;
 
+  let errors = [];
 
+  if (!req.body.img) {
+    errors.push({ text: 'please enter shoe name' });
+  }
+  if (!req.body.name) {
+    errors.push({ text: 'please enter shoe name' });
+  }
+  if (!req.body.description) {
+    errors.push({ text: 'please enter shoe description' })
+  }
+  if (!req.body.sizes) {
+    errors.push({ text: 'please enter  shoe size' })
+  }
+  if (!req.body.price) {
+    errors.push({ text: 'please enter select shoe price' })
+  }
+  if (errors.length > 0) {
+    res.render('shoes/add', {
+      errors: errors,
+      img: req.body.img,
+      name: req.body.name,
+      description: req.body.description,
+      sizes: req.body.sizes,
+      price: req.body.price
+    });
+  } else {
+    const newShoes = {
 
-
-  let errors=[];
-  
-
-  if(!req.body.img){
-      errors.push({text:'please enter shoe name'});
-  }
-  if(!req.body.name){
-      errors.push({text:'please enter shoe name'});
-  }
-  if(!req.body.description){
-      errors.push({text:'please enter shoe description'})
-  }
-  if(!req.body.size){
-      errors.push({text:'please enter  shoe size'})
-  }
-  if(!req.body.price){
-      errors.push({text:'please enter select shoe price'})
-  }
-  if(errors.length > 0){
-      res.render('shoes/add',{
-          errors: errors,
-      img:req.body.img,   
-      name:req.body.name,
-      description:req.body.description,
-     sizes:req.body.sizes,
-    price:req.body.price
-  });
-  }else{
-      const newShoes ={
-
-          img:req.body.img,
-          name:req.body.name,
-          description:req.body.description,
-          sizes:req.body.sizes,
-          price:req.body.price,
-          user: req.user.id
-      }
-      new shoes (newShoes)
+      img: req.body.img,
+      name: req.body.name,
+      description: req.body.description,
+      sizes: req.body.sizes,
+      price: req.body.price
+    }
+    new shoes(newShoes)
       .save()
       .then(idea => {
-          res.redirect('/shoes')
+        res.redirect('/')
       })
-  } 
+  }
+
 });
 
 
 //Edit shoe form process
-router.put('/:id',upload.single('img'),ensureAuthenticated,(req, res) => {
+
+router.put('/:id', upload.single('img'), (req, res) => {
+  console.log(req.body);
 
   let img
   if (req.file) {
@@ -125,39 +147,53 @@ router.put('/:id',upload.single('img'),ensureAuthenticated,(req, res) => {
 
   shoes.findOne({
 
-    _id:req.params.id
+
+    _id: req.params.id
   })
-  .then(shoe => {
-      shoe.img= req.body.img;
-      shoe.name =req.body.name;
-      shoe.description =req.body.description;
-      shoe.size =req.body.size;
-      shoe.price =req.body.price;
+    .then(shoe => {
+      if (req.body.img !== shoe.img && req.body.img !== '' && req.body.img !== 'noimage.jpg'){
+        shoe.img = req.body.img;
+      }
+
+      if (req.body.name !== shoe.name && req.body.name !== '') {
+        shoe.name = req.body.name;
+      }
+
+      if (req.body.description !== shoe.description && req.body.description !== '') {
+        shoe.description = req.body.description;
+      }
+
+      if (req.body.sizes !== shoe.sizes && typeof req.body.sizes !== 'undefined' && req.body.sizes.length > 0) {
+        shoe.sizes = req.body.sizes;
+      }
+
+      if (req.body.price !== shoe.price && req.body.price !== '') {
+        shoe.price = req.body.price;
+      }
 
       shoe.save()
-      .then(shoe => {
-          res.redirect('/shoes');
-      })
-      .catch(err => {
+        .then(shoe => {
+          res.redirect('/');
+        })
+        .catch(err => {
           console.log(err)
-      })
-  })
-  .catch(err => {
+        })
+    })
+    .catch(err => {
       console.log(err)
-  })
-}); 
-
-//delete shoe
-router.delete('/:id',ensureAuthenticated,(req, res)=> {
-
-    shoes.remove({
-        _id: req.params.id
-      })
-    .then(() => {
-        req.flash('success_msg', 'item deleted');
-        res.redirect('/shoes')
     })
 });
 
+//delete shoe
+router.delete('/:id', (req, res) => {
+
+  shoes.deleteOne({
+    _id: req.params.id
+  })
+    .then(() => {
+      res.redirect('/')
+    })
+});
 
 module.exports = router;
+

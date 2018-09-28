@@ -1,0 +1,50 @@
+<div>
+    <h2>Shopping Cart</h2>
+    <div id="shopping-cart">
+
+        <div id="cart-details">
+            {{#if session.cart}}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each session.cart.items}}
+                    <tr>
+                        <th scope="row"><a href="shoes/product/{{item._id}}"><img src="product-pictures/{{item.img}}"></a></th>
+                        <td>{{item.name}}</td>
+                        <td>${{item.price}}</td>
+                        <td>{{qty}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            
+        </div>
+        <div id="cart-total">
+            <h3>Cart Total</h3>
+            <div>
+                <p>Subtotal:</p>
+                <p>${{session.cart.totalPrice}}</p>
+            </div>
+            <div>
+                <p>Delivery:</p>
+                <p>Free</p>
+            </div>
+            <div>
+                <p>Total:</p>
+                <p>${{session.cart.totalPrice}}</p>
+            </div>
+            <a href="/checkout"><button id="cart-checkout-btn">Checkout</button></a>
+        </div>
+        {{else}}
+        <h3>Shopping cart is empty</h3>
+        {{/if}}
+
+    </div>
+</div>
