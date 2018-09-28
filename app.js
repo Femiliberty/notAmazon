@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const shoes = require('./models/shoes');
@@ -16,6 +17,7 @@ const app = express()
 var indexRouter = require('./routes/index');
 var shoesRouter = require('./routes/shoes');
 const users = require('./routes/users');
+
 
 
 //passport config
@@ -69,12 +71,38 @@ app.use(function (req, res, next) {
 })
 
 
+//middleware for express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  }));
+
+  // Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+  app.use(flash());
+
+  //global variables for messages
+  app.use(function(req, res, next){
+      res.locals.success_msg = req.flash('success_msg')
+      res.locals.success_msg = req.flash('error_msg');
+      res.locals.error = req.flash('error');
+      res.locals.user = req.user || null;
+      next();
+  })
+
 //to let the app know to use ..........
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Routes
 app.use('/', indexRouter);
 app.use('/shoes', shoesRouter);
+
+
 app.use('/users', users)
 
 // //how to use middleware
@@ -87,10 +115,12 @@ app.get('/about',(req, res) =>{
     res.render('About');
 })
 
+
 // get cart page 
 app.get('/cart', (req, res) => {
     res.render('cart');
 });
+
 
 const port = 5000;
 

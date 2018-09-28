@@ -16,6 +16,10 @@ const ShoeSchema = new Schema({
         type:String,
         required: false
     },
+    user:{
+        type:String,
+        required:true
+    },
     sizes: {
         type:Array,
         required: false

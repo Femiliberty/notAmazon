@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 const multer = require('multer');
@@ -7,15 +8,19 @@ const shoes = require('../models/shoes.js');
 const cart = require('../models/Cart');
 const { ensureAuthenticated } = require('../helpers/auth');
 
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/product-pictures');
   },
+
   filename: function (req, file, cb) {
+
     let profileID = uuid() + '.jpg';
     cb(null, profileID);
   }
 });
+
 
 var upload = multer({ storage: storage });
 
@@ -70,12 +75,14 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 // POST Add shoe
 router.post('/add', upload.single('img'), (req, res) => {
 
+
   let img
   if (req.file) {
     img = req.file.filename;
   } else {
     img = 'noimage.jpg';
   }
+
 
   req.body.img = img;
 
@@ -120,12 +127,15 @@ router.post('/add', upload.single('img'), (req, res) => {
         res.redirect('/')
       })
   }
+
 });
 
 
 //Edit shoe form process
+
 router.put('/:id', upload.single('img'), (req, res) => {
   console.log(req.body);
+
   let img
   if (req.file) {
     img = req.file.filename;
@@ -136,6 +146,7 @@ router.put('/:id', upload.single('img'), (req, res) => {
   req.body.img = img;
 
   shoes.findOne({
+
 
     _id: req.params.id
   })
@@ -185,3 +196,4 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
