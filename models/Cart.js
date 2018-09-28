@@ -24,9 +24,12 @@ module.exports = function Cart(initItems) {
 
     this.removeOne = function (item, id) {
         var storedItem = this.items[id];
+        storedItem.qty--;
         this.totalQty--;
         this.totalPrice -= storedItem.item.price;
-       delete this.items[id];
+        if(storedItem.qty == 0){
+            delete this.items[id];
+        }
     }
 
     this.generateArray = function () {
