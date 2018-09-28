@@ -22,6 +22,16 @@ module.exports = function Cart(initItems) {
         this.totalPrice += storedItem.item.price;
     };
 
+    this.removeOne = function (item, id) {
+        var storedItem = this.items[id];
+        storedItem.qty--;
+        this.totalQty--;
+        this.totalPrice -= storedItem.item.price;
+        if(storedItem.qty == 0){
+            delete this.items[id];
+        }
+    }
+
     this.generateArray = function () {
         var arr = [];
         for (var id in this.items) {
