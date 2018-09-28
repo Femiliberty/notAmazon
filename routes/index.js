@@ -26,6 +26,10 @@ router.get('/add-to-cart/:id', (req, res) => {
     res.redirect('/');
   });
 
+  router.get('/checkout', (req, res) => {
+    res.render('checkout')
+  })
+
 });
 
 module.exports = router;

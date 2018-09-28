@@ -37,16 +37,30 @@ router.get('/product/:id', (req, res) => {
 });
 
 // GET add shoes form
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
+  if (!req.user.isAdmin) {
+    res.json({
+      message: 'You do not have permission to access this'
+    })
+  }
   res.render('shoes/add');
 });
 
 // GET edit shoe form
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  if(!req.user.isAdmin) {
+    res.json({
+      message: 'You do not have permission to access this'
+    })
+  }
+ 
   shoes.findOne({
     _id: req.params.id
   })
     .then(shoe => {
+      // if (!req.user.isAdmin) {
+      //   res.render('shoes/index', { shoe: shoe  })
+      // }
       res.render('shoes/edit', {
         shoe: shoe
       });

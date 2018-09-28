@@ -3,7 +3,7 @@
     <div id="shopping-cart">
 
         <div id="cart-details">
-
+            {{#if session.cart}}
             <table class="table">
                 <thead>
                     <tr>
@@ -14,44 +14,37 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each session.cart.items}}
                     <tr>
-                        <th scope="row"><a href="/product"><img src="images/BV8016_445_A_PREM.jpeg"></a></th>
-                        <td>Mark</td>
-                        <td>$180</td>
-                        <td>1</td>
+                        <th scope="row"><a href="shoes/product/{{item._id}}"><img src="product-pictures/{{item.img}}"></a></th>
+                        <td>{{item.name}}</td>
+                        <td>${{item.price}}</td>
+                        <td>{{qty}}</td>
                     </tr>
-                    <tr>
-                        <th scope="row"><a href="/product"><img src="images/BV8016_445_A_PREM.jpeg"></a></th>
-                        <td>Jacob</td>
-                        <td>$180</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><a href="/product"><img src="images/BV8016_445_A_PREM.jpeg"></a></th>
-                        <td>Larry</td>
-                        <td>$180</td>
-                        <td>1</td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
-
+            
         </div>
         <div id="cart-total">
             <h3>Cart Total</h3>
             <div>
                 <p>Subtotal:</p>
-                <p>$180</p>
+                <p>${{session.cart.totalPrice}}</p>
             </div>
             <div>
                 <p>Delivery:</p>
-                <p>$10</p>
+                <p>Free</p>
             </div>
             <div>
                 <p>Total:</p>
-                <p>$190</p>
+                <p>${{session.cart.totalPrice}}</p>
             </div>
-            <button id="cart-checkout-btn">Checkout</button>
+            <a href="/checkout"><button id="cart-checkout-btn">Checkout</button></a>
         </div>
+        {{else}}
+        <h3>Shopping cart is empty</h3>
+        {{/if}}
 
     </div>
 </div>
