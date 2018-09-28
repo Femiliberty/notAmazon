@@ -19,7 +19,7 @@
                         <th scope="row"><a href="shoes/product/{{item._id}}"><img src="product-pictures/{{item.img}}"></a></th>
                         <td>{{item.name}}</td>
                         <td>${{item.price}}</td>
-                        <td>{{qty}}</td>
+                        <td>{{qty}}<a href="/remove-item/{{item._id}}">Remove</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
