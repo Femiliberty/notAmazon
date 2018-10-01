@@ -266,6 +266,12 @@ table img {
     margin: 50px auto 20px auto;
 }
 
+.banner-text {
+    /* background: rgba(10,10,10,.5); */
+    border-radius: 2rem;
+    text-shadow: 3pt 3pt 3pt black;
+}
+
 
 /* #product-details {
     display: flex;
