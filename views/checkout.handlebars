@@ -9,6 +9,7 @@
       <li class="list-group-item d-flex justify-content-between lh-condensed">
         <div>
           <h6 class="my-0">{{item.name}}</h6>
+          <small class="text-muted">Qty {{qty}}</small>
         </div>
         <span class="text-muted">${{item.price}}</span>
       </li>
@@ -38,7 +39,6 @@
           </div>
         </div>
       </div>
-      
       <div class="mb-3">
         <label for="email">Email <span class="text-muted">(Optional)</span></label>
         <input type="email" class="form-control" id="email" placeholder="you@example.com">
@@ -102,20 +102,6 @@
 
       <h4 class="mb-3">Payment</h4>
 
-      <div class="d-block my-3">
-        <div class="custom-control custom-radio">
-          <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-          <label class="custom-control-label" for="credit">Credit card</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="debit">Debit card</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="paypal">PayPal</label>
-        </div>
-      </div>
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cc-name">Name on card</label>

@@ -118,7 +118,9 @@ router.post('/add', upload.single('img'), (req, res) => {
       img: req.body.img,
       name: req.body.name,
       description: req.body.description,
-      sizes: req.body.sizes,
+      sizes: req.body.sizes.sort((a,b) => {
+        return a.size - b.size;
+      }),
       price: req.body.price
     }
     new shoes(newShoes)
@@ -164,7 +166,9 @@ router.put('/:id', upload.single('img'), (req, res) => {
       }
 
       if (req.body.sizes !== shoe.sizes && typeof req.body.sizes !== 'undefined' && req.body.sizes.length > 0) {
-        shoe.sizes = req.body.sizes;
+        shoe.sizes = req.body.sizes.sort((a, b) => {
+          return a.size - b.size;
+        });
       }
 
       if (req.body.price !== shoe.price && req.body.price !== '') {

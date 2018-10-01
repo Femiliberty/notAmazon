@@ -2,8 +2,10 @@
 <aside>
     <div id="aside-content">
         <div id="side-bar-logo">
-            <h1>Not-</h1>
-            <h5>Amazon</h5>
+            <a href="/">
+                <h1>Not-</h1>
+                <h5>Amazon</h5>
+            </a>
         </div>
         <nav>
             <ul>
@@ -14,7 +16,7 @@
                 {{#if user.isAdmin}}
                 <li><a href="/shoes/add"><i class="fas fa-plus-square">&nbsp;</i>ADD SHOES</a></li>
                 {{/if}}
-                <li><a><i class="fas fa-user"></i>&nbsp;{{user.name}}</a></li>
+                <li><a href="/"><i class="fas fa-user"></i>&nbsp;{{user.name}}</a></li>
                 <li><a href="/users/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;LOGOUT</a></li>
                 {{else}}
                 <li><a href="/users/login"><i class="fas fa-sign-in-alt"></i>&nbsp;LOGIN</a></li>
@@ -26,6 +28,9 @@
 </aside>
 
 <nav class="nav-bar">
+    <div id="nav-bar-link">
+        <a href="/">Not-Amazon</a>
+    </div>
 
     <div id="navPopUp" onclick="toggleMenu()">
         <span></span>
@@ -37,10 +42,10 @@
 
             <ul>
                 <li><a href="/">HOME</a></li>
-                <li><a href="/cart"><i class="fas fa-shopping-cart"></i>&nbsp;CART&nbsp;<span class="badge">{{session.cart.totalQty}}</span></a></li>
+                <li><a href="/cart"><i class="fas fa-shopping-cart"></i>&nbsp;CART&nbsp;{{session.cart.totalQty}}</a></li>
                 {{#if user}}
                 {{#if user.isAdmin}}
-                <li><a href="/shoes/add"><i class="fas fa-plus"></i>&nbsp;ADD SHOES</a></li>
+                <li><a href="/shoes/add">ADD SHOES</a></li>
                 {{/if}}
             
                 <li><a href="/users/logout">LOGOUT</a></li>

@@ -28,7 +28,7 @@ header {
 }
 #main-content {
   margin: 50px auto;
-  width: 80%;
+  width: 90%;
   display: flex;
   grid-area: content;
   /* background: red; */
@@ -47,12 +47,28 @@ img {
 #side-bar-logo{
     /* border-bottom: 5px solid gold; */
     margin: 40px auto 70px auto;
-    font-size: 2.5rem;
+   
     text-align: center;
+}
+
+#side-bar-logo a {
+    color: black;
+    font-family: 'Permanent Marker', cursive;
+}
+
+#side-bar-logo a:hover {
+    text-decoration: none;
 }
 
 #side-bar-logo h5 {
     /* border-bottom: 5px solid goldenrod; */
+     /* font-size: 2.5rem; */
+}
+
+i {
+    color: black;
+    margin: 0 10px;
+    font-size: 1.3rem;
 }
 
 nav ul {
@@ -67,6 +83,7 @@ nav a {
 
 nav li {
     margin: 40px;
+    text-transform: uppercase;
 }
 
 nav li:hover {
@@ -206,10 +223,10 @@ button {
 }
 
 /* Cart Page */
-table {
+/* table {
     width: 700px;
     border-collapse: collapse;
-}
+} */
 
 th {
     text-align: left;
@@ -218,11 +235,11 @@ th {
 
 }
 
-thead tr {
+/* thead tr {
     height: 30px;
     background: rgb(238, 238, 238);
     
-}
+} */
 
 thead th {
     font-weight: 300;
@@ -234,8 +251,12 @@ td {
     text-align: left;
 }
 
+td form {
+    display: inline;
+}
 table img {
-    height: 200px;
+    min-width: 100px;
+    min-height: 200px;
     margin-top: 10px;
 }
 
@@ -244,9 +265,9 @@ table img {
     flex-direction: column;
     margin-left: 20px;
     margin-top: 20px;
-    width: 400px;
+    width: auto;
     height: 400px;
-    background:  rgb(238, 238, 238);
+    /* background:  rgb(238, 238, 238); */
 }
 
 #cart-total h3 {
@@ -272,6 +293,29 @@ table img {
     text-shadow: 3pt 3pt 3pt black;
 }
 
+#size-qty-div li {
+    display: flex;
+    list-style: none;
+}
+
+.qty-btn {
+    background: none;
+     border: none;
+     color: #0066ff;
+     text-decoration: underline;
+     cursor: pointer;
+}
+
+a {
+    color: black;
+}
+
+#nav-bar-link {
+    font-family: 'Permanent Marker', cursive;
+    margin-left: 20px;
+    display: none;
+    color: black;
+}
 
 /* #product-details {
     display: flex;
@@ -390,6 +434,10 @@ button {
     "footer";
   }
 
+  #main-content {
+      margin-top: 100px;
+  }
+
   aside {
       display: none;
     z-index: 1;
@@ -406,6 +454,7 @@ button {
     height: 100%;
     font-size: 1rem;
     color: white;
+    font-family: 'Permanent Marker', cursive;
   }
 
   #aside-content {
@@ -435,13 +484,20 @@ button {
   }
 
   .nav-bar {
-  background-color: rgb(10,10,10, 1);
-  height: 80px;
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    height: 80px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 2;
+    /* border-bottom: 1px solid gray; */
 }
+
+
+
 
 nav h3 {
   display: inline-block;
@@ -493,6 +549,15 @@ nav a {
   font-family: 'Permanent Marker', sans-serif;
 }
 
+#nav-bar-link {
+    display: inherit;
+}
+
+#nav-bar-link a {
+    font-size: 2rem;
+    color: black;
+    text-decoration: none;
+}
 #navPopUp {
   float: right;
   margin-right: 20px;
@@ -516,7 +581,7 @@ nav a {
   position: relative;
   top: 9px;
   
-  background-color: whitesmoke;
+  background-color: black;
   z-index: 2;
   
  
