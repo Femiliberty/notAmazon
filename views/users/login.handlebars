@@ -1,27 +1,86 @@
-<div class="row">
 
-<div class="">
-  <div class="card card-body">
 
-    <h3 class="text-center">Account Login</h3>
-    <form method="post"  action="/users/login">
-      <div class="form-group">
-        <label for="email">Email</label>
 
-        <input type="email"   name="email" class="form-control">
 
-      </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-
-        <input type="password"  name="password" class="form-control">
-
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<form method="post"  action="/users/login">
+<section class="login-block">
+    <div class="container">
+	<div class="row">
+		<div class="col-md-4 login-sec">
+		    <h2 class="text-center">Login Now</h2>
+		    <form class="login-form">
+  <div class="form-group">
+    <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+    <input type="text" class="form-control"  name="email"placeholder="">
+    
   </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+    <input type="password" name="password"  class="form-control" placeholder="">
+  </div>
+  
+  
+    <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input">
+      <small>Remember Me</small>
+    </label>
+    <button type="submit" class="btn btn-login float-right">Submit</button>
+  </div>
+  
+</form>
+<div class="copy-text">Created with <i class="fas fa-code"></i> by <a href="http://localhost:5000/users/login">Kendell and Femi</a></div>
+		</div>
+		<div class="col-md-8 banner-sec">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                 <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol>
+            <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+      <img class="d-block img-responsive" src="https://c.static-nike.com/a/images/w_1920,c_limit,f_auto/hoyp4htwuvcnct6fwejt/air-jordan-1-nrg-nigel-sylvester-release-date.jpg" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="banner-text">
+            <h2>Air Jordan I</h2>
+            <p>The Air Jordan I Hi OG NRG colorway takes inspiration from professional BMX rider and Nike, Inc. family member, Nigel
+            Sylvester. Serving as his go-to riding shoe, Nigel’s AJ1s are often seen with heavy distress marks created during the
+            trial and error part of mastering tricks.</p>
+        </div>	
+  </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="https://c.static-nike.com/a/images/w_1920,c_limit,f_auto/bnxlrqi6i2z29u8ivirg/nike-sb-dunk-high-x-humidity-metallic-gold-release-date.jpg" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="banner-text">
+            <h2>Nike SB</h2>
+            <p>Nike SB continues celebrating skateboarding's cultural gathering places with the release of Humidity Skate Shop's SB
+            Dunk High, commemorating New Orleans' tricentennial. Approaching its 22nd anniversary as New Orleans’ oldest skateshop,
+            Humidity is led by owner Philly Santosuosso, who has helped turn it into a communal shop for the passionate Nola skate
+            scene.</p>
+        </div>	
+    </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="https://c.static-nike.com/a/images/w_1920,c_limit,f_auto/d7sd4qzznrss25avpdch/nike-womens-air-force-1-sage-low-white-release-date.jpg" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="banner-text">
+            <h2>This is Heaven</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+        </div>	
+    </div>
+  </div>
+            </div>	   
+		    
+		</div>
+	</div>
 </div>
-
-</div>
+</section>
+<style>
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+</style>
