@@ -26,16 +26,28 @@
             <h2>{{shoe.name}}</h2>
         </div>
         <p>{{shoe.description}}</p>
-        <select>
-            {{#each shoe.sizes}}
-            <option value="{{size}}">{{size}}</option>
-            {{/each}}
-        </select>
-        <div id="qty-div">
-            <label for="qty">Qty</label>
-            <input type="number" min="1" id="qty" placeholder="1">
-        </div>
-        <a href="/add-to-cart/{{shoe.id}}"><button id="add-to-cart">Add to cart</button></a>
+        <form method="POST" action="/add-to-cart/{{shoe.id}}">
+            <div class="input-group mb-3">
+                
+    
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Size</label>
+                    </div>
+                    <select class="form-control" id="size" name=size>
+                        {{#each shoe.sizes}}
+                        <option value="{{size}}">{{size}}</option>
+                        {{/each}}
+                    </select>
+                
+            </div>
+            <div class="input-group mb-3 row-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Qty</span>
+                </div>
+                <input type="number" class="form-control" min="1" id="qty" placeholder="1" name="qty">
+            </div>
+        <button type="submit" id="add-to-cart">Add to cart</button>
+        </form>
         {{#if user.isAdmin}}
         <a href="/shoes/edit/{{shoe.id}}">Edit Shoes</a>
         {{/if}}

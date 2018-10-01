@@ -6,43 +6,60 @@
 <div id="edit-form">
     <form action="/shoes/{{shoe.id}}?_method=PUT" method="post" enctype="multipart/form-data">
 
-        <div>
-            <input type="file" name="img" placeholder="Product Image">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Product Name</span>
+            </div>
+            <input type="text" class="form-control" name="name" placeholder="Product Name">
         </div>
-
-        <div>
-            <input type="text" name="name" placeholder="Product Name">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Price</span>
+            </div>
+            <input type="text" class="form-control" name="price" placeholder="Price">
         </div>
-
-        <div>
-            <input type="text" name="price" placeholder="Price">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" name="img" placeholder="Product Image">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
         </div>
-
-
-
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Description</span>
+            </div>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
         <div id="size-qty-div">
             <ul id="sizes-ul">
                 {{#each shoe.sizes}}
                 <li>
-                    <input type="text" name="sizes[{{@index}}][size]" placeholder="Size" value="{{size}}">
-                    <input type="text" name="sizes[{{@index}}][qty]" placeholder="Qty" value="{{qty}}">
+                    <div class="input-group mb-3 row-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Size</span>
+                        </div>
+                        <input type="text" class="form-control" name="sizes[{{@index}}][size]" placeholder="Size" value="{{size}}">
+                    </div>
+                    <div class="input-group mb-3 row-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Qty</span>
+                        </div>
+                        <input type="text" class="form-control" name="sizes[{{@index}}][qty]" placeholder="Qty" value="{{qty}}">
+                    </div>
                 </li>
                 {{/each}}
             </ul>
         </div>
-        <button id="add-size-btn">Add Size</button>
-
-
-
-        <div>
-            <textarea rows="10" cols="10" name="description" placeholder="Product Description"></textarea>
-        </div>
+        <button type="button" class="btn btn-warning mb-3" id="add-size-btn">Add Size</button>
         <button type="submit" class="btn btn-primary">Hit Me</button>
     </form>
     <form method="post" action="/shoes/{{shoe._id}}?_method=DELETE">
         <input type="hidden" name="_method" value="DELETE">
         {{#if user.isAdmin}}
-        <button type="submit" id="delete-btn">Delete</button>
+        <button type="submit" class="btn btn-danger" id="delete-btn">Delete</button>
         {{/if}}
     </form>
 </div>

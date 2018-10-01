@@ -10,6 +10,7 @@
                         <th scope="col"></th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Size</th>
                         <th scope="col">Quantity</th>
                     </tr>
                 </thead>
@@ -19,10 +20,13 @@
                         <th scope="row"><a href="shoes/product/{{item._id}}"><img src="product-pictures/{{item.img}}"></a></th>
                         <td>{{item.name}}</td>
                         <td>${{item.price}}</td>
+                        <td>{{size}}</td>
                         <td>
                             <a href="/remove-item/{{item._id}}"><i class="fas fa-minus-square"></i></a>
                             {{qty}}
-                            <a href="/add-to-cart/{{item._id}}"><i class="fas fa-plus-square"></i></a>
+                            <form method="POST" action="/add-to-cart/{{item._id}}" id="my_form{{@index}}">
+                                <a href="javascript:{}" onclick="document.getElementById('my_form{{@index}}').submit(); return false" class="qty-btn"><i class="fas fa-plus-square"></i></a>
+                            </form>
                         </td>
                     </tr>
                     {{/each}}
@@ -44,10 +48,10 @@
                 <p>Total:</p>
                 <p>${{session.cart.totalPrice}}</p>
             </div>
-            <a href="/checkout"><button id="cart-checkout-btn">Checkout</button></a>
+            <a href="/checkout"><button class="btn btn-primary" id="cart-checkout-btn">Checkout</button></a>
         </div>
         {{else}}
-        <h3>Shopping cart is empty</h3>
+        <h3>Your cart is empty</h3>
         {{/if}}
 
     </div>

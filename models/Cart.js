@@ -11,13 +11,14 @@ module.exports = function Cart(initItems) {
         }
     }
 
-    this.add = function (item, id) {
+    this.add = function (item, id, size, qty) {
         var storedItem = this.items[id];
         if (!storedItem) {
-            storedItem = this.items[id] = {qty: 0, item: item, price: 0};
+            storedItem = this.items[id] = {qty: qty, item: item, size: size, price: 0};
         }
         storedItem.qty++;
         storedItem.price = storedItem.item.price * storedItem.qty;
+        storedItem.size = storedItem.size ? storedItem.size : size;
         this.totalQty++;
         this.totalPrice += storedItem.item.price;
     };
